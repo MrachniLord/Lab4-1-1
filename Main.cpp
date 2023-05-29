@@ -34,13 +34,19 @@ int main() {
     employee->group = group;
     employees.push_back(employee);
   }
-
+  for (Employee* emple : employees) {
+      if (emple->position == "инженер") {
+          std::cout << emple->surname << ", " << emple->birthYear << ", " << e->position << ", " << "группа:" << e->group << "\n";
+      }
+  }
+  
   // Вывод информации обо всех инженерах
   std::cout << "Инженеры:\n";
+  std::sort(employees.begin(), employees.end(),
+      [](Employee* e1, Employee* e2) { return e1->birthYear < e2->birthYear; });
   std::for_each(employees.begin(), employees.end(), [](Employee* e) {
     if (e->position == "инженер") {
-      std::cout << e->surname << ", " << e->birthYear << ", " << e->position
-                << ", " << e->group << "\n";
+      std::cout << e->surname << ", " << e->birthYear << ", " << e->position << ", " << "группа:" << e->group << "\n";
     }
   });
 
@@ -50,14 +56,13 @@ int main() {
             [](Employee* e1, Employee* e2) { return e1->birthYear < e2->birthYear; });
   std::for_each(employees.begin(), employees.end(), [](Employee* e) {
     if (e->position != "председатель") {
-      std::cout << e->surname << ", " << e->birthYear << ", " << e->position
-                << ", " << e->group << "\n";
+      std::cout << e->surname << ", " << e->birthYear << ", " << e->position << ", " << "группа:" << e->group << "\n";
     }
   });
 
   // Освобождение памяти
   std::for_each(employees.begin(), employees.end(),
                 [](Employee* e) { delete e; });
-
+  employees.clear();
   return 0;
 }
